@@ -1,62 +1,47 @@
-# Lily58 ZMK Configuration
+# My Custom Lily58 ZMK Firmware  teclado
 
-This repository contains the ZMK firmware configuration for a Lily58 split keyboard with Nice Nano v2 controllers.
+Welcome to my personal ZMK firmware configuration for the Lily58 split keyboard! This setup is tailored for a wireless experience with Nice!Nano v2 controllers.
 
-## Hardware
+## ⌨️ Key Features
 
-- **Keyboard**: Lily58 (58-key split keyboard)
-- **Controller**: Nice Nano v2 (nRF52840-based)
-- **Features**: OLED display enabled, Bluetooth wireless
+*   **Wireless & Split:** Designed for a clean, wireless desk setup.
+*   **OLED Display:** Shows current layer and keyboard status.
+*   **Multiple Layers:** Access to symbols, numbers, and function keys without leaving the home row.
+*   **VIM-style Navigation:** Arrow keys on the home row for efficient coding and text editing.
 
-## Layout
+## 🗺️ Keymap
+
+This configuration uses a custom keymap focused on productivity and comfort. Here is a quick look at the layout:
 
 ![Keymap Layout](./my_keymap.png)
 
-## Features
+*   **Base Layer:** Standard QWERTY layout.
+*   **Lower Layer:** Access to numbers, function keys, and Bluetooth controls.
+*   **Raise Layer:** VIM-style navigation and special characters.
 
-- Split keyboard with separate firmware for left and right halves
-- Bluetooth connectivity for wireless operation
-- OLED display showing keyboard status
-- Multiple layers:
-  - Default layer with QWERTY layout
-  - Lower layer with function keys and Bluetooth controls
-  - Raise layer with numbers and vim-style navigation
+## 🚀 Getting Started
 
-## Building Firmware
+The easiest way to use this firmware is to grab the latest build from the **Actions** tab in this repository.
 
-### GitHub Actions (Recommended)
+1.  Go to the [**Actions** page](https://github.com/s-orlando/zmk-config/actions).
+2.  Click on the latest successful workflow run.
+3.  Download the `firmware` artifact.
+4.  Follow the standard ZMK instructions to flash the `.uf2` files to your Nice!Nano controllers.
 
-Firmware builds automatically on every push using GitHub Actions. Download the compiled `.uf2` files from the Actions artifacts.
+## 🛠️ Customization
 
-### Local Build
+Feel free to fork this repository and customize the keymap to your liking! The main configuration files are:
 
-To build locally using west:
+*   `config/lily58.keymap`: The heart of the keymap. Edit this to change key bindings.
+*   `config/lily58.conf`: Hardware-specific settings (e.g., enabling OLEDs).
+
+## 👨‍💻 Building Locally
+
+If you prefer to build the firmware yourself, you can use `west` (the Zephyr meta-tool).
 
 ```bash
-# Build left half
-west build -d build/left -b nice_nano_v2 -- -DSHIELD=lily58_left
-
-# Build right half  
-west build -d build/right -b nice_nano_v2 -- -DSHIELD=lily58_right
-
-# Clean build
-west build -p
+# Build the firmware for both sides
+west build -p auto -b nice_nano_v2 -- -DSHIELD="lily58_left lily58_right"
 ```
 
-## Installation
-
-1. Download the firmware files from GitHub Actions artifacts
-2. Put your Nice Nano controller into bootloader mode
-3. Copy the appropriate `.uf2` file to the controller
-4. Repeat for both left and right halves
-
-## Configuration Files
-
-- `config/lily58.keymap` - Main keymap configuration
-- `config/lily58.conf` - Hardware feature configuration
-- `build.yaml` - GitHub Actions build matrix
-- `keymap.yaml` - High-level keymap visualization
-
-## Customization
-
-To modify the keymap, edit `config/lily58.keymap` and push to trigger a new build. The keymap uses ZMK's device tree syntax.
+This will create the `.uf2` files in the `firmware` directory.
